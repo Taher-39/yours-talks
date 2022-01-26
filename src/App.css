@@ -1,16 +1,15 @@
-.app{
-    display: grid;
-    place-items: center;
-    height: 100vh;
-    background-color: #dadbd3;
+.app {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  background-color: #dadbd3;
 }
 
-.app-body{
-    display: flex;
-    width: 90vw;
-    height: 90vh;
-    margin-top: -50px;
-    box-shadow: -3px 5px 20px 1px rgba(0, 0, 0, 0.75);
-    background-color: #fff;
-    border-radius: 10px;
+.app-body {
+  display: flex;
+  width: 90vw;
+  height: 90vh;
+  box-shadow: -3px 5px 20px 1px rgba(0, 0, 0, 0.75);
+  background-color: #fff;
+  border-radius: 10px;
 }
