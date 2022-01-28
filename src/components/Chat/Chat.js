@@ -5,7 +5,7 @@ import { AttachFile, MoreVert, SearchOutlined } from "@material-ui/icons";
 import InsertEmoticonIcon from "@material-ui/icons/InsertEmoticon";
 import MicIcon from "@material-ui/icons/Mic";
 
-const Chat = () => {
+const Chat = ({ messages }) => {
   return (
     <div className="chat">
       <div className="chat__header">
@@ -29,24 +29,21 @@ const Chat = () => {
         </div>
       </div>
       <div className="chat__body">
-        <p className="chat__message">
-          <span className="chat__name">Taher</span>
-          How are you.
-          <span className="chat__timestamp">{new Date().toDateString()}</span>
-        </p>
+        {messages.map((msg) => (
+          <p className={`chat__message ${msg.received && "chat__receiver"}`}>
+            <span className="chat__name">{msg.name}</span>
+            {msg.message}
+            <span className="chat__timestamp">{msg.timestamp}</span>
+          </p>
+        ))}
 
-        <p className="chat__message chat__receiver">
+        <p className="chat__message">
           <span className="chat__receiverName">Forhad</span>
           Alhamdulillah, Fine. You?
           <span className="chat__timestamp">{new Date().toDateString()}</span>
         </p>
 
-        <p className="chat__message">
-          <span className="chat__name">Taher</span>
-          Alhamdulillah. Is going school today?
-          <span className="chat__timestamp">{new Date().toDateString()}</span>
-        </p>
-
+        
         <p className="chat__message chat__receiver">
           <span className="chat__receiverName">Forhad</span>
           No, School is off today.
@@ -68,7 +65,7 @@ const Chat = () => {
           />
           <button type="submit">Send</button>
         </form>
-        
+
         <IconButton>
           <MicIcon />
         </IconButton>
