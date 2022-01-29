@@ -43,7 +43,7 @@ const Chat = ({ messages }) => {
           </IconButton>
         </div>
       </div>
-      <div className="chat__body">
+      <div className="chat__body" id='chat'>
         {messages.map((msg, index) => (
           <p
             key={index + 1}
