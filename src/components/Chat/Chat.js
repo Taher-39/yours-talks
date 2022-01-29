@@ -1,11 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Chat.css";
 import { Avatar, IconButton } from "@material-ui/core";
 import { AttachFile, MoreVert, SearchOutlined } from "@material-ui/icons";
 import InsertEmoticonIcon from "@material-ui/icons/InsertEmoticon";
 import MicIcon from "@material-ui/icons/Mic";
+import axios from "../../axios";
 
 const Chat = ({ messages }) => {
+  const [input, setInput] = useState("");
+
+  const messageHandler = async (e) => {
+    e.preventDefault();
+    await axios.post("/messages/new", {
+      message: input,
+      name: "demo user",
+      timestamp: `${new Date().toDateString()}`,
+      received: false,
+    });
+
+    setInput("");
+  };
+  //
   return (
     <div className="chat">
       <div className="chat__header">
@@ -29,26 +44,16 @@ const Chat = ({ messages }) => {
         </div>
       </div>
       <div className="chat__body">
-        {messages.map((msg) => (
-          <p className={`chat__message ${msg.received && "chat__receiver"}`}>
+        {messages.map((msg, index) => (
+          <p
+            key={index + 1}
+            className={`chat__message ${msg.received && "chat__receiver"}`}
+          >
             <span className="chat__name">{msg.name}</span>
             {msg.message}
             <span className="chat__timestamp">{msg.timestamp}</span>
           </p>
         ))}
-
-        <p className="chat__message">
-          <span className="chat__receiverName">Forhad</span>
-          Alhamdulillah, Fine. You?
-          <span className="chat__timestamp">{new Date().toDateString()}</span>
-        </p>
-
-        
-        <p className="chat__message chat__receiver">
-          <span className="chat__receiverName">Forhad</span>
-          No, School is off today.
-          <span className="chat__timestamp">{new Date().toDateString()}</span>
-        </p>
       </div>
 
       <div className="chat__footer">
@@ -59,11 +64,13 @@ const Chat = ({ messages }) => {
         <form>
           <input
             type="text"
-            name="massage"
-            id="massage"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
             placeholder="Type a massage"
           />
-          <button type="submit">Send</button>
+          <button onClick={messageHandler} type="submit">
+            Send
+          </button>
         </form>
 
         <IconButton>
